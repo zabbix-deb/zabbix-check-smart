@@ -1,3 +1,10 @@
+zabbix-check-smart (1:0.5.2) xenial; urgency=low
+
+  * Removed useless sudo (Closes: #1)
+  * Fixed regex, which caused wrong temperature reporting (Closes: #2)
+
+ -- Sebastian Huebner <shuebner@benhur.de>  Fri, 26 Jul 2019 13:46:02 +0200
+
 zabbix-check-smart (1:0.5.1) xenial; urgency=medium
 
   * Remove old smart.conf

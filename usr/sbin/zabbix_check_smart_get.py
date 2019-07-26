@@ -3,7 +3,7 @@ import subprocess
 import sys
 import re
 
-smart_key_re = re.compile(r'^\s*\d+ (\w+)\s+0x[a-f0-9]+\s+(\d+).*\s+(\d+).*$')
+smart_key_re = re.compile(r'^\s*\d+ (\w+)\s+0x[a-f0-9]+\s+(\d+).*\s+[a-zA-Z-_]+\s+(\d+).*$')
 
 
 if len(sys.argv) <= 2:
@@ -21,7 +21,7 @@ smart_value = 0
 if len(sys.argv) == 4 and sys.argv[3] == 'value':
     smart_value = 1
 
-output = subprocess.Popen(['sudo', 'smartctl', '-A', '/dev/{0}'.format(hdd)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+output = subprocess.Popen(['smartctl', '-A', '/dev/{0}'.format(hdd)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 (stdout, stderr) = output.communicate()
 
 for line in stdout.split("\n"):
