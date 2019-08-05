@@ -1,3 +1,9 @@
+zabbix-check-smart (1:0.5.3) xenial; urgency=low
+
+  * Fixed regex again, to match only values which has UPDATED Always attribute (Closes: #3)
+
+ -- Sebastian Hübner <shuebner@benhur.de>  Mon, 05 Aug 2019 19:30:57 +0200
+
 zabbix-check-smart (1:0.5.2) xenial; urgency=low
 
   * Removed useless sudo (Closes: #1)
