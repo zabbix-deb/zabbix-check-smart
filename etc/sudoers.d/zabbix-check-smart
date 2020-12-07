@@ -1,1 +1,1 @@
-zabbix ALL=NOPASSWD:/usr/sbin/zabbix_check_smart_get.py,/usr/sbin/zabbix_check_smart_discover.py
+zabbix ALL=NOPASSWD:/usr/lib/zabbix-check/bin/zabbix-check-smart

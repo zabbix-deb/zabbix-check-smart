@@ -1,8 +1,17 @@
+zabbix-check-smart (1:1.0.0) focal; urgency=low
+
+  * Removed python2 compatibility
+  * Removed all historical checks from postinst and postrm
+  * Removed discovery script from sudoers
+  * Changed file paths to match paths in the other zabbix-check packages
+
+ -- Sebastian Huebner <shuebner@benhur.de>  Mon, 07 Dec 2020 15:05:26 +0100
+
 zabbix-check-smart (1:0.5.3) xenial; urgency=low
 
   * Fixed regex again, to match only values which has UPDATED Always attribute (Closes: #3)
 
- -- Sebastian Hübner <shuebner@benhur.de>  Mon, 05 Aug 2019 19:30:57 +0200
+ -- Sebastian Huebner <shuebner@benhur.de>  Mon, 05 Aug 2019 19:30:57 +0200
 
 zabbix-check-smart (1:0.5.2) xenial; urgency=low
 

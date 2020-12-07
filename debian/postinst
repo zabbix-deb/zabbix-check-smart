@@ -2,46 +2,11 @@
 
 case "$1" in
     configure)
-        chmod +x /usr/sbin/zabbix_check_smart_get.py
-        chmod +x /usr/sbin/zabbix_check_smart_discover.py
-        chmod 440 /etc/sudoers.d/zabbix-check-smart
-
-        #remove old version of sudo rights (pre 1:0.4)
-        if grep -q 'zabbix_check_smart_get.py' /etc/sudoers; then
-            grep -v 'zabbix_check_smart_get.py' /etc/sudoers > /etc/.sudoers
-            mv /etc/.sudoers /etc/sudoers
-            chmod 440 /etc/sudoers
-        fi
-
-        # Standartcheck ob Konfig Ordner existiert und
-        # in der zabbix konfig richtig steht
-        # beginn
-        conf_file="/etc/zabbix/zabbix_agentd.conf"
-        confd_path="/etc/zabbix/zabbix_agentd.d/"
-        include_line="Include=$confd_path"
-
-        if [ ! -d $confd_path ]; then
-            mkdir $confd_path
-        fi
-
-        if [ "$(cat $conf_file | egrep "^#\s*${include_line}$" | wc -l)" -ge "1" ]; then
-            sed -i "s%^#\s*${include_line}$%${include_line}%g" $conf_file
-        elif [ "$(cat $conf_file | egrep "^${include_line}$" | wc -l)" -eq "0" ]; then
-            sed -i "/^#\s*Include=$/a $include_line" $conf_file
-        fi
-        # end
-
-	# Remove old smart.conf
-	if [ -e $confd_path/smart.conf ]; then 
-		rm $confd_path/smart.conf
-	fi
-	# end
-
         echo "Enable SMART if disabled"
         for hdd in $(ls /dev/ | egrep ^[hs]{1}d[a-z]{1}$); do
             if [ "$(smartctl -i /dev/$hdd | grep Disabled | wc -l)" -gt "0" ]; then
                 smartctl -s on -q silent /dev/$hdd
-                echo "Enabled SMART on $hdd"
+                echo "  - Enabled SMART on $hdd"
             fi
         done
 
