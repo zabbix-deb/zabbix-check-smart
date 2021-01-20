@@ -4,15 +4,15 @@ case "$1" in
     configure)
         echo "Enable SMART if disabled"
         for hdd in $(ls /dev/ | egrep ^[hs]{1}d[a-z]{1}$); do
-            if [ "$(smartctl -i /dev/$hdd | grep Disabled | wc -l)" -gt "0" ]; then
-                smartctl -s on -q silent /dev/$hdd
-                echo "  - Enabled SMART on $hdd"
+            if [ "$(smartctl -i /dev/${hdd} | grep Disabled | wc -l)" -gt "0" ]; then
+                smartctl -s on -q silent /dev/${hdd}
+                echo "  - Enabled SMART on ${hdd}"
             fi
         done
 
-        if which systemctl >/dev/null 2>&1; then
-            systemctl restart zabbix-agent || true
-        elif which invoke-rc.d >/dev/null 2>&1; then
+        if command -v systemctl >/dev/null 2>&1; then
+            deb-systemd-invoke restart zabbix-agent || true
+        elif command -v invoke-rc.d >/dev/null 2>&1; then
             invoke-rc.d zabbix-agent stop || true
             invoke-rc.d zabbix-agent start || true
         else
@@ -27,5 +27,7 @@ case "$1" in
         exit 1
     ;;
 esac
+
+#DEBHELPER#
 
 exit 0
